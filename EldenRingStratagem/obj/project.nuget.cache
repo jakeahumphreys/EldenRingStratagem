@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "U77ta6Ws4HiSNvwNJrkbuyqYWPzMHzFF75StomoAoLZaVv8NlaQ6S7a4ssNdBW2B1BTv3BRup1qBdvcA7ZFp3w==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jakeh\\RiderProjects\\EldenRingStratagem\\EldenRingStratagem\\EldenRingStratagem.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jakeh\\.nuget\\packages\\htmlagilitypack\\1.11.46\\htmlagilitypack.1.11.46.nupkg.sha512",
+    "C:\\Users\\jakeh\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512",
+    "C:\\Users\\jakeh\\.nuget\\packages\\system.text.encodings.web\\8.0.0-preview.2.23128.3\\system.text.encodings.web.8.0.0-preview.2.23128.3.nupkg.sha512"
+  ],
+  "logs": []
+}
