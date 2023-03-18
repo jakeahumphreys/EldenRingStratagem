@@ -1,21 +1,40 @@
 ﻿using System.Net;
+using EldenRingStratagem.Types;
 using HtmlAgilityPack;
 
 namespace EldenRingStratagem;
 
 public sealed class WikiClient
 {
-    private readonly HtmlWeb web;
+    private readonly HtmlWeb _web;
     private readonly string _baseUrl;
-    
+    private List<CachedStratagem> _cachedStratagems;
+
+    private List<CachedStratagem> CachedStratagems
+    {
+        get => _cachedStratagems;
+        set => _cachedStratagems = value;
+    }
+
     public WikiClient()
     {
         _baseUrl = "https://eldenring.wiki.fextralife.com/";
-        web = new HtmlWeb();
+        _web = new HtmlWeb();
+        CachedStratagems = new List<CachedStratagem>();
     }
 
     public List<string> GetStrategyFor(string bossName)
     {
+
+        var cachedStratagemForBoss = CachedStratagems.SingleOrDefault(x =>
+            x.BossName == bossName && IsNewerThanTenMinutes(x.DateTime));
+
+        if (cachedStratagemForBoss != null)
+        {
+            Console.WriteLine("Cache was used!");
+            return cachedStratagemForBoss.BestTips;
+        }
+        
         var adjustedBossName = ReplaceWhiteSpaceWithPlus(bossName);
         var urlWithBossName = $"{_baseUrl}/{adjustedBossName}";
 
@@ -29,18 +48,10 @@ public sealed class WikiClient
         if (doc == null)
             throw new Exception("Not found"); //todo improve message
 
-        // var header = doc.DocumentNode
-        //     .Descendants("h4")
-        //     .FirstOrDefault(x => String.Equals(x.InnerText.Trim(), $"{bossName} Fight Strategy", StringComparison.CurrentCultureIgnoreCase));
-        // if (header == null)
-        //     throw new Exception("Another bit not found"); //todo improve message
-
         var div = doc.DocumentNode.Descendants("div")
             .Where(d => !d.Descendants("div").Any(d2 => d2.Descendants("h4").Any(h => h.GetAttributeValue("class", "") == "special" && h.InnerText.Trim() == $"{bossName} Fight Strategy")))
             .FirstOrDefault(d => d.Descendants("h4").Any(h => h.GetAttributeValue("class", "") == "special" && h.InnerText.Trim() == $"{bossName} Fight Strategy"));
-
-
-
+        
         if (div == null)
             throw new Exception("Another bit not found"); //todo improve message
 
@@ -48,8 +59,17 @@ public sealed class WikiClient
 
         if (list == null)
             throw new Exception("yet another bit not found"); //todo improve message
+        
+        var tipsList = list.Descendants("li").Select(x => x.InnerText.Trim()).ToList();
+        
+        CachedStratagems.Add(new CachedStratagem
+        {
+            BossName = bossName,
+            BestTips = tipsList,
+            DateTime = DateTime.Now
+        });
 
-        return list.Descendants("li").Select(x => x.InnerText.Trim()).ToList();
+        return tipsList;
     }
 
     private string ReplaceWhiteSpaceWithPlus(string value)
@@ -73,5 +93,12 @@ public sealed class WikiClient
         }
 
         return result;
+    }
+
+    private bool IsNewerThanTenMinutes(DateTime dateTimeToCheck)
+    {
+        var difference = DateTime.Now - dateTimeToCheck;
+
+        return difference.TotalMinutes <= 10;
     }
 }
