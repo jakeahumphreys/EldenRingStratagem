@@ -5,7 +5,7 @@ namespace EldenRingStratagem.Api;
 
 public interface IBossService
 {
-    public List<string> BestTips(BestTipsRequest request);
+    public BestTipsResponse BestTips(BestTipsRequest request);
 }
 public class BossService : IBossService
 {
@@ -16,7 +16,7 @@ public class BossService : IBossService
         _wikiClient = new WikiClient();
     }
     
-    public List<string> BestTips(BestTipsRequest request)
+    public BestTipsResponse BestTips(BestTipsRequest request)
     {
         return _wikiClient.GetStrategyFor(request.BossName);
     }

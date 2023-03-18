@@ -14,8 +14,8 @@ public class BossController
         _bossService = bossService;
     }
     
-    [Microsoft.AspNetCore.Mvc.Route("best-tips")]
-    public IEnumerable<string> BestTips([FromBody] BestTipsRequest request)
+    [Route("best-tips")]
+    public BestTipsResponse BestTips([FromBody] BestTipsRequest request)
     {
         return _bossService.BestTips(request);
     }

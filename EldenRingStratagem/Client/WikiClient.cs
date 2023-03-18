@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using EldenRingStratagem.Api.Types;
 using EldenRingStratagem.Client.Types;
 using HtmlAgilityPack;
 
@@ -19,16 +20,18 @@ public sealed class WikiClient
         CachedStratagems = new List<CachedStratagem>();
     }
 
-    public List<string> GetStrategyFor(string bossName)
+    public BestTipsResponse GetStrategyFor(string bossName)
     {
-
         var cachedStratagemForBoss = CachedStratagems.SingleOrDefault(x =>
             x.BossName == bossName && IsNewerThanTenMinutes(x.DateTime));
 
         if (cachedStratagemForBoss != null)
         {
-            Console.WriteLine("Cache was used!");
-            return cachedStratagemForBoss.BestTips;
+            return new BestTipsResponse
+            {
+                BestTips = cachedStratagemForBoss.BestTips,
+                Source = "Fextralife (Cached)"
+            };
         }
         
         var adjustedBossName = ReplaceWhiteSpaceWithPlus(bossName);
@@ -65,7 +68,11 @@ public sealed class WikiClient
             DateTime = DateTime.Now
         });
 
-        return tipsList;
+        return new BestTipsResponse
+        {
+            BestTips = tipsList,
+            Source = "Fextralife"
+        };
     }
 
     private string ReplaceWhiteSpaceWithPlus(string value)
