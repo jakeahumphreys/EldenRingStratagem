@@ -10,11 +10,7 @@ public sealed class WikiClient
     private readonly string _baseUrl;
     private List<CachedStratagem> _cachedStratagems;
 
-    private List<CachedStratagem> CachedStratagems
-    {
-        get => _cachedStratagems;
-        set => _cachedStratagems = value;
-    }
+    private List<CachedStratagem> CachedStratagems { get; set; }
 
     public WikiClient()
     {
