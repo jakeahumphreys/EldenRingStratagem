@@ -1,8 +1,8 @@
 ﻿using System.Net;
-using EldenRingStratagem.Types;
+using EldenRingStratagem.Client.Types;
 using HtmlAgilityPack;
 
-namespace EldenRingStratagem;
+namespace EldenRingStratagem.Client;
 
 public sealed class WikiClient
 {

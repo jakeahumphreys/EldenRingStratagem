@@ -17,3 +17,8 @@ C:\Users\jakeh\RiderProjects\EldenRingStratagem\EldenRingStratagem\obj\Debug\net
 C:\Users\jakeh\RiderProjects\EldenRingStratagem\EldenRingStratagem\obj\Debug\net6.0\EldenRingStratagem.pdb
 C:\Users\jakeh\RiderProjects\EldenRingStratagem\EldenRingStratagem\obj\Debug\net6.0\EldenRingStratagem.genruntimeconfig.cache
 C:\Users\jakeh\RiderProjects\EldenRingStratagem\EldenRingStratagem\obj\Debug\net6.0\ref\EldenRingStratagem.dll
+C:\Users\jakeh\RiderProjects\EldenRingStratagem\EldenRingStratagem\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\jakeh\RiderProjects\EldenRingStratagem\EldenRingStratagem\bin\Debug\net6.0\System.Net.Http.Formatting.dll
+C:\Users\jakeh\RiderProjects\EldenRingStratagem\EldenRingStratagem\bin\Debug\net6.0\System.Web.Http.dll
+C:\Users\jakeh\RiderProjects\EldenRingStratagem\EldenRingStratagem\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\jakeh\RiderProjects\EldenRingStratagem\EldenRingStratagem\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

@@ -1,4 +1,4 @@
-﻿namespace EldenRingStratagem.Types;
+﻿namespace EldenRingStratagem.Client.Types;
 
 public class CachedStratagem
 {

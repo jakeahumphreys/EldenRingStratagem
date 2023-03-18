@@ -1,28 +1,17 @@
-﻿using EldenRingStratagem;
+﻿using EldenRingStratagem.Api;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 
-var wikiClient = new WikiClient();
-var exit = false;
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSingleton<IBossService, BossService>();
 
-while (!exit)
-{
-    Console.WriteLine("Enter the name of the boss as it's displayed in-game");
-    var bossName = Console.ReadLine();
+var app = builder.Build();
 
-    if (bossName != null)
-    {
-        if (bossName == "exit")
-            exit = true;
-        else
-        {
-            var items = wikiClient.GetStrategyFor(bossName);
-            if(items.Count == 0)
-                Console.WriteLine($"Looks like the a stratagem can't be found for {bossName}, did you enter their name correctly?");
-    
-            Console.WriteLine($"Best Tips for {bossName}:");
-            Console.WriteLine(string.Join("\n", items));
-        }
-    }
-}
+// app.UseHttpsRedirection();
+app.MapControllers();
+app.Run();
 
 
 
