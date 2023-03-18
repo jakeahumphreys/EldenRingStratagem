@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using EldenRingStratagem.Api.Types;
+using EldenRingStratagem.Api.Types.BestTips;
 using EldenRingStratagem.Client.Types;
 using HtmlAgilityPack;
 
@@ -38,26 +39,36 @@ public sealed class WikiClient
         var urlWithBossName = $"{_baseUrl}/{adjustedBossName}";
 
         var html = GetPageHtml(urlWithBossName);
+
+        if (string.IsNullOrWhiteSpace(html))
+            return new BestTipsResponse().WithError<BestTipsResponse>(new Error
+            {
+                Message = "Unable to find the requested page on Fextralife"
+            });
+
         var decodedHtml = WebUtility.HtmlDecode(html);
 
         var doc = new HtmlDocument();
         doc.OptionFixNestedTags = false;
         doc.LoadHtml(decodedHtml);
 
-        if (doc == null)
-            throw new Exception("Not found"); //todo improve message
-
         var div = doc.DocumentNode.Descendants("div")
             .Where(d => !d.Descendants("div").Any(d2 => d2.Descendants("h4").Any(h => h.GetAttributeValue("class", "") == "special" && h.InnerText.Trim() == $"{bossName} Fight Strategy")))
             .FirstOrDefault(d => d.Descendants("h4").Any(h => h.GetAttributeValue("class", "") == "special" && h.InnerText.Trim() == $"{bossName} Fight Strategy"));
-        
+
         if (div == null)
-            throw new Exception("Another bit not found"); //todo improve message
+            return new BestTipsResponse().WithError<BestTipsResponse>(new Error
+            {
+                Message = $"The fextralife wiki page doesn't appear to be configured for {bossName}"
+            });
 
         var list = div.Descendants("ul").FirstOrDefault();
 
         if (list == null)
-            throw new Exception("yet another bit not found"); //todo improve message
+            return new BestTipsResponse().WithError<BestTipsResponse>(new Error
+            {
+                Message = $"The fextralife wiki page doesn't appear to have any tips for {bossName}"
+            });
         
         var tipsList = list.Descendants("li").Select(x => x.InnerText.Trim()).ToList();
         

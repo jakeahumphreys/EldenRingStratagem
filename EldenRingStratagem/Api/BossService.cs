@@ -1,4 +1,5 @@
 ﻿using EldenRingStratagem.Api.Types;
+using EldenRingStratagem.Api.Types.BestTips;
 using EldenRingStratagem.Client;
 
 namespace EldenRingStratagem.Api;

@@ -1,4 +1,4 @@
-﻿using EldenRingStratagem.Api.Types;
+﻿using EldenRingStratagem.Api.Types.BestTips;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EldenRingStratagem.Api;

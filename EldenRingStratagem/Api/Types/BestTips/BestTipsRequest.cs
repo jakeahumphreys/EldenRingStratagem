@@ -1,4 +1,4 @@
-﻿namespace EldenRingStratagem.Api.Types;
+﻿namespace EldenRingStratagem.Api.Types.BestTips;
 
 public sealed class BestTipsRequest
 {
