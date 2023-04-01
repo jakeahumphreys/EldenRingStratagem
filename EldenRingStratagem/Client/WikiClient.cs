@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using EldenRingStratagem.Api.Types;
-using EldenRingStratagem.Api.Types.BestTips;
+using EldenRingStratagem.Api.Types.Search;
 using EldenRingStratagem.Client.Types;
 using HtmlAgilityPack;
 
@@ -20,15 +20,15 @@ public sealed class WikiClient
         _web = new HtmlWeb();
         CachedStratagems = new List<CachedStratagem>();
     }
-
-    public BestTipsResponse GetStrategyFor(string bossName)
+    
+    public SearchResponse GetStrategyFor(string bossName)
     {
         var cachedStratagemForBoss = CachedStratagems.SingleOrDefault(x =>
             x.BossName == bossName && IsNewerThanTenMinutes(x.DateTime));
 
         if (cachedStratagemForBoss != null)
         {
-            return new BestTipsResponse
+            return new SearchResponse
             {
                 BestTips = cachedStratagemForBoss.BestTips,
                 Source = "Fextralife (Cached)"
@@ -41,7 +41,7 @@ public sealed class WikiClient
         var html = GetPageHtml(urlWithBossName);
 
         if (string.IsNullOrWhiteSpace(html))
-            return new BestTipsResponse().WithError<BestTipsResponse>(new Error
+            return new SearchResponse().WithError<SearchResponse>(new Error
             {
                 Message = "Unable to find the requested page on Fextralife"
             });
@@ -57,7 +57,7 @@ public sealed class WikiClient
             .FirstOrDefault(d => d.Descendants("h4").Any(h => h.GetAttributeValue("class", "") == "special" && h.InnerText.Trim() == $"{bossName} Fight Strategy"));
 
         if (div == null)
-            return new BestTipsResponse().WithError<BestTipsResponse>(new Error
+            return new SearchResponse().WithError<SearchResponse>(new Error
             {
                 Message = $"The fextralife wiki page doesn't appear to be configured for {bossName}"
             });
@@ -65,7 +65,7 @@ public sealed class WikiClient
         var list = div.Descendants("ul").FirstOrDefault();
 
         if (list == null)
-            return new BestTipsResponse().WithError<BestTipsResponse>(new Error
+            return new SearchResponse().WithError<SearchResponse>(new Error
             {
                 Message = $"The fextralife wiki page doesn't appear to have any tips for {bossName}"
             });
@@ -79,7 +79,7 @@ public sealed class WikiClient
             DateTime = DateTime.Now
         });
 
-        return new BestTipsResponse
+        return new SearchResponse
         {
             BestTips = tipsList,
             Source = "Fextralife"

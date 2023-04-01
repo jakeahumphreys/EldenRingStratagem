@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSingleton<IBossService, BossService>();
+builder.Services.AddSingleton<IBossSearchService, BossSearchSearchService>();
 
 var app = builder.Build();
 
