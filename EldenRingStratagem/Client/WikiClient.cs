@@ -8,7 +8,6 @@ namespace EldenRingStratagem.Client;
 
 public sealed class WikiClient
 {
-    private readonly HtmlWeb _web;
     private readonly string _baseUrl;
     private List<CachedStratagem> _cachedStratagems;
 
@@ -17,7 +16,6 @@ public sealed class WikiClient
     public WikiClient()
     {
         _baseUrl = "https://eldenring.wiki.fextralife.com/";
-        _web = new HtmlWeb();
         CachedStratagems = new List<CachedStratagem>();
     }
     
