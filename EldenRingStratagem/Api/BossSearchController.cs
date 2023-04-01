@@ -17,6 +17,6 @@ public class BossSearchController
     [Route("search")]
     public SearchResponse Search([FromBody] SearchRequest request)
     {
-        return _bossSearchService.BestTips(request);
+        return _bossSearchService.Search(request);
     }
 }

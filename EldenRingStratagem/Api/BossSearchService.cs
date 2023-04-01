@@ -5,7 +5,7 @@ namespace EldenRingStratagem.Api;
 
 public interface IBossSearchService
 {
-    public SearchResponse BestTips(SearchRequest request);
+    public SearchResponse Search(SearchRequest request);
 }
 public class BossSearchSearchService : IBossSearchService
 {
@@ -16,8 +16,8 @@ public class BossSearchSearchService : IBossSearchService
         _wikiClient = new WikiClient();
     }
     
-    public SearchResponse BestTips(SearchRequest request)
+    public SearchResponse Search(SearchRequest request)
     {
-        return _wikiClient.GetStrategyFor(request.BossName);
+        return _wikiClient.Search(request.BossName);
     }
 }

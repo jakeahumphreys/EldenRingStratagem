@@ -21,7 +21,7 @@ public sealed class WikiClient
         CachedStratagems = new List<CachedStratagem>();
     }
     
-    public SearchResponse GetStrategyFor(string bossName)
+    public SearchResponse Search(string bossName)
     {
         var cachedStratagemForBoss = CachedStratagems.SingleOrDefault(x =>
             x.BossName == bossName && IsNewerThanTenMinutes(x.DateTime));
