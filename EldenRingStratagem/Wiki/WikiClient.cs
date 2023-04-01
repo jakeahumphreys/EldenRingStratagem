@@ -4,7 +4,7 @@ using EldenRingStratagem.Api.Types.Search;
 using EldenRingStratagem.Client.Types;
 using HtmlAgilityPack;
 
-namespace EldenRingStratagem.Client;
+namespace EldenRingStratagem.Wiki;
 
 public sealed class WikiClient
 {

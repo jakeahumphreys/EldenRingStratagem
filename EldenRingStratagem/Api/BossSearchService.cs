@@ -1,5 +1,5 @@
 ﻿using EldenRingStratagem.Api.Types.Search;
-using EldenRingStratagem.Client;
+using EldenRingStratagem.Wiki;
 
 namespace EldenRingStratagem.Api;
 
