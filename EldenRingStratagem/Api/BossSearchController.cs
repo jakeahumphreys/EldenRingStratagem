@@ -17,6 +17,6 @@ public class BossSearchController
     [Route("search/wiki")]
     public SearchResponse SearchWiki([FromBody] SearchRequest request)
     {
-        return _bossSearchService.Search(request);
+        return _bossSearchService.SearchWiki(request);
     }
 }
