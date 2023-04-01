@@ -14,8 +14,8 @@ public class BossSearchController
         _bossSearchService = bossSearchService;
     }
     
-    [Route("search")]
-    public SearchResponse Search([FromBody] SearchRequest request)
+    [Route("search/wiki")]
+    public SearchResponse SearchWiki([FromBody] SearchRequest request)
     {
         return _bossSearchService.Search(request);
     }
